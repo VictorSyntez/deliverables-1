@@ -1,0 +1,93 @@
+@startuml
+
+' note - removed 1 to many on extends; "1" <|-- "many"
+
+' Specification Details
+package Template #CornflowerBlue {
+  class ProtocolSpecOutline #White/Cyan
+  class TechnicalSpecOutline #White/Cyan
+  class GlossayOutline #White/Cyan
+  class TIPOutline #White/Cyan
+  class BestPracticeOutline #White/Cyan
+  class DesignPrincipleOutline #White/Cyan
+  class GoveranceGuideOutline #White/Cyan
+  class ImplementationGuideOutline #White/Cyan
+  class WhitePaperOutline #White/Cyan
+}
+
+package Specification #Gold {
+  class ProtocolSpec #AntiqueWhite
+  class TechnicalSpec #AntiqueWhite
+}
+
+object Layer1InteropSpec
+object Layer2InteropSpec
+object Layer3InteropSpec
+
+ProtocolSpecOutline  <|-- ProtocolSpec #black;line.bold;text:black : extends
+TechnicalSpecOutline  <|-- TechnicalSpec #black;line.bold;text:black : extends
+ProtocolSpec <|-- Layer1InteropSpec #black;line.bold;text:black : is
+ProtocolSpec <|-- Layer2InteropSpec #black;line.bold;text:black : is
+ProtocolSpec <|-- Layer3InteropSpec #black;line.bold;text:black : is
+
+' Glossary Details
+package Glossary #Pink {
+  class DomainGlossary #AntiqueWhite
+}
+
+object WorkGroupGlossary
+object ProjectGlossary #Orange
+
+GlossayOutline  <|-- DomainGlossary #black;line.bold;text:black : extends
+DomainGlossary <|-- WorkGroupGlossary #black;line.bold;text:black
+DomainGlossary <|-- ProjectGlossary #black;line.bold;text:black
+
+note bottom of ProjectGlossary
+  All Project (ecosystem, utility) activity
+  (Glossaries, Goverance Frameworks,
+    Project Playbooks, and Project Publications)
+  is managed outside of ToIP
+  but leverages the Foundation for guidance.
+end note
+
+' Recomendation Details
+package Recomendation #Magenta {
+  class TIP #AntiqueWhite|Pink
+  class DesignPrinciple #AntiqueWhite|Pink
+  class BestPractice #AntiqueWhite|Pink
+}
+
+object SaturnV
+
+TIPOutline <|-- TIP #black;line.bold;text:black : extends
+BestPracticeOutline <|-- BestPractice #black;line.bold;text:black : extends
+DesignPrincipleOutline <|-- DesignPrinciple #black;line.bold;text:black : extends
+TIP <|-- SaturnV #black;line.bold;text:black : is
+
+' Guide Details
+package Guide #GreenYellow {
+  class GoveranceGuide #AntiqueWhite
+  class ImplementationGuide #AntiqueWhite
+}
+
+object GoveranceFramework #Orange
+object ProjectPlaybook #Orange
+
+GoveranceGuideOutline  <|-- GoveranceGuide #black;line.bold;text:black : extends
+ImplementationGuideOutline  <|-- ImplementationGuide #black;line.bold;text:black : extends
+GoveranceGuide <|-- GoveranceFramework #black;line.bold;text:black : is
+ImplementationGuide <|-- ProjectPlaybook #black;line.bold;text:black : is
+
+' White Paper Details
+package WhitePaper #Wheat {
+  class WhitePaperReport #AntiqueWhite
+}
+
+object FoundationPublication
+object ProjectPublication #Orange
+
+WhitePaperOutline  <|-- WhitePaperReport #black;line.bold;text:black : extends
+WhitePaperReport <|-- FoundationPublication #black;line.bold;text:black : is
+WhitePaperReport <|-- ProjectPublication #black;line.bold;text:black : is
+
+@enduml
